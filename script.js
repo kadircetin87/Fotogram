@@ -1,7 +1,6 @@
-let currentIndex = 0; // Şu an gösterilen fotoğrafın numarası
-let lastOpenedIndex = 0; // Pencereyi açan son küçük fotoğrafın numarası
+let currentIndex = 0;
+let lastOpenedIndex = 0;
 
-// Fotoğrafların yolları
 const imageData = [
   {
     src: "Bilder/bild1.jpg",
@@ -20,8 +19,9 @@ const imageData = [
   },
   {
     src: "Bilder/bild4.jpg",
-    title: "Witch Moon",
-    description: "Silhouette of a witch before the big full moon.",
+    title: "Haunted Pumpkin Village",
+    description:
+      "A glowing jack-o'-lantern stands before a spooky village under a full moon.",
   },
   {
     src: "Bilder/bild5.jpg",
@@ -65,142 +65,117 @@ const imageData = [
   },
 ];
 
-// HTML içindeki galeri ve fotoğraf penceresini buluyorum
 const galleryContainer = document.getElementById("gallery");
 const dialogRef = document.getElementById("fotoDialog");
+const dialogMarkup = `
+  <div class="dialog-box">
+    <div class="dialog-top-bar">
+      <h3 id="dialogTitle" class="dialog-title"></h3>
+      <button type="button" class="dialog-close" aria-label="Close dialog" onclick="closeDialog()">&times;</button>
+    </div>
+    <img id="dialogImage" class="dialog-image" alt="">
+    <div class="dialog-bottom-bar">
+      <button type="button" aria-label="Previous photo" onclick="previousImage()">
+        <img src="Icons/Button.png" alt="" width="60" height="60">
+      </button>
+      <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
+      <button type="button" aria-label="Next photo" onclick="nextImage()">
+        <img src="Icons/Button2.png" alt="" width="60" height="60">
+      </button>
+    </div>
+  </div>`;
 
-// Küçük fotoğrafları galeriye ekliyorum
+/** Builds the gallery with the original photos. */
 function renderGallery() {
   let markup = "";
-
-  // Fotoğrafları sırayla HTML koduna ekliyorum
   for (let i = 0; i < imageData.length; i++) {
-    markup += `
- <button type="button" class="thumbnail" data-index="${i}"
- aria-label="Open image ${i + 1} of ${imageData.length}: ${imageData[i].title}">
- <img src="${imageData[i].src}" alt="" width="150" height="150" loading="lazy">
- </button>`;
+    markup += `<button id="thumbnail-${i}" type="button" class="thumbnail" onclick="openDialog(${i})" aria-label="Open photo ${i + 1} of ${imageData.length}: ${imageData[i].title}">
+      <img src="${imageData[i].src}" alt="" width="150" height="150" loading="lazy">
+    </button>`;
   }
-
-  // Oluşturduğum HTML kodunu galeriye yerleştiriyorum
   galleryContainer.innerHTML = markup;
 }
 
-// Büyük fotoğraf penceresinin HTML yapısını oluşturdmm
+/** Creates the native dialog content. */
 function renderDialog() {
-  dialogRef.innerHTML = `
- <div class="dialog-box">
- <div class="dialog-top-bar">
- <h3 id="dialogTitle" class="dialog-title"></h3>
- <button type="button" id="closeButton" class="dialog-close" aria-label="Close dialog">&times;</button>
- </div>
- <img id="dialogImage" class="dialog-image" alt="">
- <div class="dialog-bottom-bar">
- <button type="button" id="prevButton" aria-label="Previous image">
- <img src="Icons/Button.png" alt="">
- </button>
- <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
- <button type="button" id="nextButton" aria-label="Next image">
- <img src="Icons/Button2.png" alt="">
- </button>
- </div>
- </div>`;
+  dialogRef.innerHTML = dialogMarkup;
 }
 
-// Seçilen fotoğrafın başlığını, resmini ve numarasını güncel..
+/** Updates the selected photo, title, description, and counter. */
 function showImage(index) {
   currentIndex = index;
-  const photo = imageData[index];
-
-  // Fotoğrafın başlığını değiştiriyorum
+  const photo = imageData[currentIndex];
   document.getElementById("dialogTitle").textContent = photo.title;
-
-  // Büyük fotoğrafın yolunu ve alternatif metnini ayarlıyorum
   const dialogImage = document.getElementById("dialogImage");
   dialogImage.src = photo.src;
   dialogImage.alt = photo.title + ". " + photo.description;
-
-  // Kaçıncı fotoğrafın gösterildiğini yazıyorum
   document.getElementById("dialogCounter").textContent =
     index + 1 + "/" + imageData.length;
 }
 
-// Küçük fotoğrafa tıklayınca büyük fotoğraf penceresini açma
+/** Opens the dialog on the selected photo. */
 function openDialog(index) {
   lastOpenedIndex = index;
-  renderDialog();
   showImage(index);
-
-  // Pencere zaten açıksa tekrar açmıyorum
   if (!dialogRef.open) {
     dialogRef.showModal();
-
-    // Pencere açıkken arka planın kaymasını engelliyorum
     document.documentElement.classList.add("no-scroll");
   }
 }
 
-// Büyük fotoğraf penceresini kapatıyorum
+/** Closes the dialog if it is open. */
 function closeDialog() {
   if (dialogRef.open) {
     dialogRef.close();
   }
 }
 
-// Sonraki fotoğrafı gösteriyorum
+/** Shows the next photo and wraps to the first photo. */
 function nextImage() {
-  showImage((currentIndex + 1) % imageData.length);
+  if (currentIndex === imageData.length - 1) {
+    currentIndex = 0;
+  } else {
+    currentIndex++;
+  }
+  showImage(currentIndex);
 }
 
-// Önceki fotoğrafı gösteriyorum
+/** Shows the previous photo and wraps to the last photo. */
 function previousImage() {
-  showImage((currentIndex - 1 + imageData.length) % imageData.length);
+  if (currentIndex === 0) {
+    currentIndex = imageData.length - 1;
+  } else {
+    currentIndex--;
+  }
+  showImage(currentIndex);
 }
 
-// Galerideki fotoğraflara tıklanmasını dinliyorum
-galleryContainer.addEventListener("click", function (event) {
-  const thumbnail = event.target.closest("button[data-index]");
-
-  // Tıklanan element bir fotoğraf butonuysa büyük fotoğrafı açıyorum
-  if (thumbnail) {
-    openDialog(Number(thumbnail.dataset.index));
-  }
-});
-
-// Büyük fotoğraf penceresindeki butonları ve dış alanı kontrol ediyorum
-dialogRef.addEventListener("click", function (event) {
-  if (event.target.closest("#closeButton")) {
-    closeDialog();
-  } else if (event.target.closest("#nextButton")) {
-    nextImage();
-  } else if (event.target.closest("#prevButton")) {
-    previousImage();
-  } else if (!event.target.closest(".dialog-box")) {
-    // Pencerenin dışındaki karanlık alana tıklanınca kapatıyorum
+/** Closes the dialog when the dark backdrop is clicked. */
+function closeDialogOnBackground(event) {
+  if (event.target === dialogRef) {
     closeDialog();
   }
-});
+}
 
-// Klavyedeki sağ ve sol ok tuşlarıyla fotoğraflar arasında geçiş yapıyorum
-dialogRef.addEventListener("keydown", function (event) {
+/** Uses the left and right arrow keys to change photos. */
+function handleDialogKeydown(event) {
   if (event.key === "ArrowRight") {
+    event.preventDefault();
     nextImage();
   } else if (event.key === "ArrowLeft") {
+    event.preventDefault();
     previousImage();
   }
-});
+}
 
-// Pencere kapanınca arka plan kaydırmasını tekrar açıyorum
-dialogRef.addEventListener("close", function () {
+/** Restores page scrolling and keyboard focus after closing. */
+function handleDialogClose() {
   document.documentElement.classList.remove("no-scroll");
-
-  // Klavye odağını pencereyi açan küçük fotoğrafa geri getiriyorum
-  const thumbnails = galleryContainer.querySelectorAll("button[data-index]");
-
-  if (thumbnails[lastOpenedIndex]) {
-    thumbnails[lastOpenedIndex].focus();
+  const thumbnail = document.getElementById("thumbnail-" + lastOpenedIndex);
+  if (thumbnail) {
+    thumbnail.focus();
   }
-});
+}
 
-// Sayfa açıldığında galeriyi oluşturuyorum
 renderGallery();
+renderDialog();
