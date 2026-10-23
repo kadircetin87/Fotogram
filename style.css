@@ -1,0 +1,387 @@
+/* Renkleri tek yerden ayarlamak için değişkenleri tanımlıyorum */
+:root {
+  --blue-100: #06171e;
+  --blue-band: #08212a;
+  --blue-95: #09212a;
+  --blue-85: #124658;
+  --red-40: #fd5b4f;
+  --grey-40: #99acb3;
+  --gray-30: #b6c4c9;
+  --white: #ffffff;
+  --text-soft: #f5f5f5;
+}
+
+/* Sayfanın genel görünümünü ayarlıyorum */
+body {
+  background-color: var(--blue-100);
+  color: var(--white);
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Üst kısmın arka planını ve hizalamasını ayarlıyorum */
+header {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: var(--blue-band);
+}
+
+/* Logoyu ve başlığı yan yana getiriyorum */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 140px;
+  box-sizing: border-box;
+}
+
+/* Üst başlığın yazı boyutunu ve kalınlığını ayarlıyorum */
+.header-title {
+  margin: 0;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+/* Logonun boyutlarını ayarlıyorum */
+.header-logo {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+/* Ana içerik alanına boşluk veriyorum */
+main {
+  padding: 160px;
+}
+
+/* Ana başlığı ortalayıp yazı stilini ayarlıyorum */
+main h2 {
+  margin-top: 0;
+  font-size: 58px;
+  font-weight: 800;
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--white);
+}
+
+/* Fotoğrafları ortalayıp alt alta geçebilmelerini sağlıyorum */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 48px 16px;
+  margin: 0 auto;
+}
+
+/* Küçük fotoğrafların boyutunu ve çerçevesini ayarlıyorum */
+.gallery .thumbnail {
+  width: 150px;
+  height: 150px;
+  border: 2px solid var(--blue-85);
+  border-radius: 16px;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fotoğrafların kutuya sığmasını sağlıyorum */
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Büyük fotoğraf penceresinin görünümünü ayarlıyorum */
+.photo-dialog {
+  border: none;
+  border-radius: 40px;
+  padding: 0;
+  width: 688px;
+  max-width: 92vw;
+  background-color: var(--blue-95);
+  color: var(--white);
+  position: relative;
+}
+
+/* Fotoğraf penceresi açılınca arka planı karartıyorum */
+.photo-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Büyük fotoğraf penceresinin iç boşluklarını ayarlıyorum */
+.dialog-box {
+  background-color: var(--blue-95);
+  border-radius: 40px;
+  padding: 56px 64px;
+  max-width: 688px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Fotoğraf başlığını ve kapatma butonunu hizalıyorum */
+.dialog-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+/* Büyük fotoğrafın başlık stilini ayarlıyorum */
+.dialog-title {
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+}
+
+/* Kapatma butonunun boyutunu ve görünümünü ayarlıyorum */
+.dialog-close {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  border-radius: 100px;
+  color: var(--white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+/* Fareyle kapatma butonunun üzerine gelince arka planı değiştiriyorum */
+.dialog-close:hover {
+  background-color: var(--blue-85);
+}
+
+/* Büyük fotoğrafın boyutunu ve hizalamasını ayarlıyorum */
+.dialog-image {
+  width: 560px;
+  height: auto;
+  border-radius: 0;
+  display: block;
+  margin: 8px;
+}
+
+/* Önceki, sonraki ve fotoğraf numarası alanını hizalıyorum */
+.dialog-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  gap: 56px;
+  margin: 48px auto 0 auto;
+  box-sizing: border-box;
+}
+
+/* İleri ve geri butonlarının boyutlarını ayarlıyorum */
+.dialog-bottom-bar button {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Butonların içindeki ikonları ayarlıyorum */
+.dialog-bottom-bar button img {
+  width: 60px;
+  height: 60px;
+  display: block;
+}
+
+/* Fareyle gezinirken ileri ve geri butonlarının arka planını değiştiriyorum */
+.dialog-bottom-bar button:hover {
+  background-color: rgba(253, 91, 79, 0.1);
+}
+
+/* Fotoğraf numarasının yazı stilini ayarlıyorum */
+.dialog-counter {
+  font-size: 16px;
+  line-height: 16px;
+  color: var(--text-soft);
+  font-family: "Figtree", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+/* Alt kısmın arka planını ve hizalamasını ayarlıyorum */
+footer {
+  background-color: var(--blue-band);
+  padding: 0 140px 31px 140px;
+  text-align: center;
+}
+
+/* Alt kısımdaki dalgalı görseli yerleştiriyorum */
+.footer-wave {
+  height: 32px;
+  margin: 0 -140px;
+  background-image: url("Icons/footer-wave.png");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+}
+
+/* Alt kısımdaki logo ve yazıları alt alta yerleştiriyorum */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Alt kısımdaki logo ile marka adını yan yana getiriyorum */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Alt kısımdaki logonun boyutlarını ayarlıyorum */
+.footer-brand img {
+  width: 38px;
+  height: 31px;
+  display: block;
+}
+
+/* Marka adının yazı stilini ayarlıyorum */
+.footer-brand-name {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 700;
+  color: var(--white);
+  text-align: left;
+}
+
+/* Telif hakkı yazısının görünümünü ayarlıyorum */
+.footer-copyright {
+  font-size: 13px;
+  line-height: 17px;
+  margin: 0;
+  color: var(--grey-40);
+}
+
+/* Büyük fotoğraf açıkken sayfanın kaymasını engelliyorum */
+html.no-scroll {
+  overflow: hidden;
+}
+
+/* Klavyeyle bir butona gelindiğinde odak çerçevesi gösteriyorum */
+:focus-visible {
+  outline: 2px solid var(--red-40);
+  outline-offset: 2px;
+}
+
+/* Telefon ekranları için görünümü ayarlıyorum */
+@media (max-width: 640px) {
+  /* Üst alanı mobil ekranda ortalıyorum */
+  header {
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    padding-block: 0;
+    box-sizing: border-box;
+  }
+
+  /* Büyük fotoğraf penceresini mobil ekrana sığdırıyorum */
+  .photo-dialog {
+    width: 343px;
+    max-width: 92vw;
+    border-radius: 40px;
+  }
+
+  /* Mobilde pencerenin iç boşluklarını azaltıyorum */
+  .dialog-box {
+    padding: 32px 16px;
+    border-radius: 40px;
+    box-sizing: border-box;
+  }
+
+  /* Kapatma butonunu başlığın üstüne alıyorum */
+  .dialog-top-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  /* Kapatma butonunu sağa hizalıyorum */
+  .dialog-close {
+    align-self: flex-end;
+  }
+
+  /* Mobilde başlık yazısının boyutunu ayarlıyorum */
+  .dialog-title {
+    font-size: 24px;
+    line-height: 29px;
+    text-align: left;
+  }
+
+  /* Büyük fotoğrafı mobil ekrana uygun hale getiriyorum */
+  .dialog-image {
+    width: 300px;
+    height: 375px;
+  }
+
+  /* Mobilde fotoğraf geçiş butonlarının aralığını ayarlıyorum */
+  .dialog-bottom-bar {
+    margin-top: 48px;
+    gap: 56px;
+  }
+}
+
+/* Tablet ve daha küçük ekranlar için düzenlemeler yapıyorum */
+@media (max-width: 1200px) {
+  /* Fotoğraf aralıklarını ve yan boşlukları azaltıyorum */
+  .gallery {
+    gap: 32px 12px;
+    padding: 0 20px;
+  }
+
+  /* Küçük fotoğrafları daha küçük gösteriyorum */
+  .gallery .thumbnail {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Üst alandaki yan boşlukları azaltıyorum */
+  .header-content {
+    padding-inline: 20px;
+  }
+
+  /* Ana içerik ve alt kısımdaki yan boşlukları azaltıyorum */
+  main,
+  footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Dalgalı görseli yeni boşluklara göre hizalıyorum */
+  .footer-wave {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}

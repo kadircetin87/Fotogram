@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotogram</title>
+    <meta name="description" content="Fotogram – your personal photo album with 12 photos and a full-screen dialog viewer.">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img class="header-logo" src="Icons/Group.png" alt="" width="41" height="39">
+            <h1 class="header-title">Fotogram</h1>
+        </div>
+    </header>
+
+    <main>
+        <h2>Your personal photo album</h2>
+
+        <div id="gallery" class="gallery" role="group" aria-label="Photo gallery with 12 images">
+        </div>
+
+
+    </main>
+
+    <footer>
+        <div class="footer-wave" aria-hidden="true"></div>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="Icons/Icon.png" alt="" width="38" height="31">
+                <span class="footer-brand-name">Developer<br>Akademie</span>
+            </div>
+            <p class="footer-copyright">&copy; 2023 Developer Akademie GmbH</p>
+        </div>
+    </footer>
+
+    <dialog id="fotoDialog" class="photo-dialog" aria-labelledby="dialogTitle">
+    </dialog>
+
+</body>
+</html>
