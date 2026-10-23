@@ -1,6 +1,7 @@
 # Fotogram 📷
 
-Fotogram – kişisel bir fotoğraf albümü projesi. 12 fotoğrafı grid olarak gösterir ve tam ekran (fullscreen) dialog görüntüleyici ile fotoğrafları büyütmenizi sağlar.
+Personal photo album built with HTML, CSS and JavaScript.
+
 
 ## Özellikler
 
