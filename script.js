@@ -67,41 +67,42 @@ const imageData = [
 
 const galleryContainer = document.getElementById("gallery");
 const dialogRef = document.getElementById("fotoDialog");
-const dialogMarkup = `
-  <div class="dialog-box">
-    <div class="dialog-top-bar">
-      <h3 id="dialogTitle" class="dialog-title"></h3>
-      <button type="button" class="dialog-close" aria-label="Close dialog" onclick="closeDialog()">&times;</button>
-    </div>
-    <img id="dialogImage" class="dialog-image" alt="">
-    <div class="dialog-bottom-bar">
-      <button type="button" aria-label="Previous photo" onclick="previousImage()">
-        <img src="Icons/Button.png" alt="" width="60" height="60">
-      </button>
-      <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
-      <button type="button" aria-label="Next photo" onclick="nextImage()">
-        <img src="Icons/Button2.png" alt="" width="60" height="60">
-      </button>
-    </div>
-  </div>`;
 
-/** Builds the gallery with the original photos. */
+const dialogMarkup = `
+ <div class="dialog-box">
+ <div class="dialog-top-bar">
+ <h3 id="dialogTitle" class="dialog-title"></h3>
+ <button type="button" class="dialog-close" aria-label="Close dialog" onclick="closeDialog()">&times;</button>
+ </div>
+ <img id="dialogImage" class="dialog-image" alt="">
+ <div class="dialog-bottom-bar">
+ <button type="button" aria-label="Previous photo" onclick="previousImage()">
+ <img src="Icons/Button.png" alt="" width="60" height="60">
+ </button>
+ <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
+ <button type="button" aria-label="Next photo" onclick="nextImage()">
+ <img src="Icons/Button2.png" alt="" width="60" height="60">
+ </button>
+ </div>
+ </div>`;
+
+/** Özgün fotoğraflarla galeriyi oluşturur. */
 function renderGallery() {
   let markup = "";
   for (let i = 0; i < imageData.length; i++) {
     markup += `<button id="thumbnail-${i}" type="button" class="thumbnail" onclick="openDialog(${i})" aria-label="Open photo ${i + 1} of ${imageData.length}: ${imageData[i].title}">
-      <img src="${imageData[i].src}" alt="" width="150" height="150" loading="lazy">
-    </button>`;
+ <img src="${imageData[i].src}" alt="" width="150" height="150" loading="lazy">
+ </button>`;
   }
   galleryContainer.innerHTML = markup;
 }
 
-/** Creates the native dialog content. */
+/** Yerel HTML dialog içeriğini oluşturur. */
 function renderDialog() {
   dialogRef.innerHTML = dialogMarkup;
 }
 
-/** Updates the selected photo, title, description, and counter. */
+/** Seçilen fotoğrafı, başlığı, açıklamayı ve sayacı günceller. */
 function showImage(index) {
   currentIndex = index;
   const photo = imageData[currentIndex];
@@ -113,7 +114,7 @@ function showImage(index) {
     index + 1 + "/" + imageData.length;
 }
 
-/** Opens the dialog on the selected photo. */
+/** Seçilen fotoğrafı dialog penceresinde açar. */
 function openDialog(index) {
   lastOpenedIndex = index;
   showImage(index);
@@ -123,14 +124,14 @@ function openDialog(index) {
   }
 }
 
-/** Closes the dialog if it is open. */
+/** Açıksa dialog penceresini kapatır. */
 function closeDialog() {
   if (dialogRef.open) {
     dialogRef.close();
   }
 }
 
-/** Shows the next photo and wraps to the first photo. */
+/** Sonraki fotoğrafı gösterir; son fotoğraftan sonra ilk fotoğrafa döner. */
 function nextImage() {
   if (currentIndex === imageData.length - 1) {
     currentIndex = 0;
@@ -140,7 +141,7 @@ function nextImage() {
   showImage(currentIndex);
 }
 
-/** Shows the previous photo and wraps to the last photo. */
+/** Önceki fotoğrafı gösterir; ilk fotoğraftan önce son fotoğrafa döner. */
 function previousImage() {
   if (currentIndex === 0) {
     currentIndex = imageData.length - 1;
@@ -150,14 +151,14 @@ function previousImage() {
   showImage(currentIndex);
 }
 
-/** Closes the dialog when the dark backdrop is clicked. */
+/** Koyu arka plana tıklandığında dialog penceresini kapatır. */
 function closeDialogOnBackground(event) {
   if (event.target === dialogRef) {
     closeDialog();
   }
 }
 
-/** Uses the left and right arrow keys to change photos. */
+/** Sağ ve sol ok tuşlarıyla fotoğraflar arasında geçiş yapar. */
 function handleDialogKeydown(event) {
   if (event.key === "ArrowRight") {
     event.preventDefault();
@@ -168,7 +169,7 @@ function handleDialogKeydown(event) {
   }
 }
 
-/** Restores page scrolling and keyboard focus after closing. */
+/** Kapatıldıktan sonra sayfa kaydırmasını ve klavye odağını geri yükler. */
 function handleDialogClose() {
   document.documentElement.classList.remove("no-scroll");
   const thumbnail = document.getElementById("thumbnail-" + lastOpenedIndex);
