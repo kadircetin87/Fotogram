@@ -69,22 +69,22 @@ const galleryContainer = document.getElementById("gallery");
 const dialogRef = document.getElementById("fotoDialog");
 
 const dialogMarkup = `
- <div class="dialog-box">
- <div class="dialog-top-bar">
- <h3 id="dialogTitle" class="dialog-title"></h3>
- <button type="button" class="dialog-close" aria-label="Close dialog" onclick="closeDialog()">&times;</button>
- </div>
- <img id="dialogImage" class="dialog-image" alt="">
- <div class="dialog-bottom-bar">
- <button type="button" aria-label="Previous photo" onclick="previousImage()">
- <img src="Icons/Button.png" alt="" width="60" height="60">
- </button>
- <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
- <button type="button" aria-label="Next photo" onclick="nextImage()">
- <img src="Icons/Button2.png" alt="" width="60" height="60">
- </button>
- </div>
- </div>`;
+<div class="dialog-box">
+    <div class="dialog-top-bar">
+        <h3 id="dialogTitle" class="dialog-title"></h3>
+        <button type="button" class="dialog-close" aria-label="Close dialog" onclick="closeDialog()">&times;</button>
+    </div>
+    <img id="dialogImage" class="dialog-image" alt="">
+    <div class="dialog-bottom-bar">
+        <button type="button" aria-label="Previous photo" onclick="previousImage()">
+            <img src="Icons/Button.png" alt="" width="60" height="60">
+        </button>
+        <span id="dialogCounter" class="dialog-counter" role="status" aria-live="polite"></span>
+          <button type="button" aria-label="Next photo" onclick="nextImage()">
+            <img src="Icons/Button2.png" alt="" width="60" height="60">
+        </button>
+    </div>
+</div>`;
 
 /** Özgün fotoğraflarla galeriyi oluşturur. */
 function renderGallery() {
@@ -177,6 +177,7 @@ function handleDialogClose() {
     thumbnail.focus();
   }
 }
-
-renderGallery();
-renderDialog();
+function init() {
+  renderGallery();
+  renderDialog();
+}

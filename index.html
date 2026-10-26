@@ -9,11 +9,20 @@
       name="description"
       content="Fotogram – your personal photo album with 12 photos and a full-screen dialog viewer."
     />
-    <link rel="preload" href="Fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="Fonts/figtree-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="style.css" />
+    <!-- 1. EKSİK: Favicon eklendi (Icons klasöründeki logoyu hedef gösterdim) -->
+    <link rel="icon" type="image/png" href="Icons/Group.png" />
     <script defer src="script.js"></script>
   </head>
-  <body>
+  <!-- 2. EKSİK: Sayfa yüklendiğinde JavaScript'teki init fonksiyonunu tetiklemek için onload eklendi -->
+  <body onload="init()">
     <header>
       <div class="header-content">
         <img
