@@ -1,7 +1,7 @@
 let currentIndex = 0;
 let lastOpenedIndex = 0;
 
-const imageData = [
+const ImageData = [
   {
     src: "Bilder/bild1.jpg",
     title: "Witch before Full Moon",
@@ -86,13 +86,19 @@ const dialogMarkup = `
     </div>
 </div>`;
 
+function init() {
+  renderGallery();
+  renderDialog();
+}
+
 /** Özgün fotoğraflarla galeriyi oluşturur. */
 function renderGallery() {
   let markup = "";
-  for (let i = 0; i < imageData.length; i++) {
-    markup += `<button id="thumbnail-${i}" type="button" class="thumbnail" onclick="openDialog(${i})" aria-label="Open photo ${i + 1} of ${imageData.length}: ${imageData[i].title}">
- <img src="${imageData[i].src}" alt="" width="150" height="150" loading="lazy">
- </button>`;
+  for (let i = 0; i < ImageData.length; i++) {
+    //** Her Resim döngüde kendi numarasını alır*/
+    markup += `<button id="thumbnail-${i}" type="button" class="thumbnail" onclick="openDialog(${i})" aria-label="Open photo ${i + 1} of ${ImageData.length}: ${ImageData[i].title}">
+  <img src="${ImageData[i].src}" alt="bild${i + 1}" width="150" height="150" loading="lazy">
+  </button>`;
   }
   galleryContainer.innerHTML = markup;
 }
@@ -105,13 +111,13 @@ function renderDialog() {
 /** Seçilen fotoğrafı, başlığı, açıklamayı ve sayacı günceller. */
 function showImage(index) {
   currentIndex = index;
-  const photo = imageData[currentIndex];
+  const photo = ImageData[currentIndex];
   document.getElementById("dialogTitle").textContent = photo.title;
   const dialogImage = document.getElementById("dialogImage");
   dialogImage.src = photo.src;
   dialogImage.alt = photo.title + ". " + photo.description;
   document.getElementById("dialogCounter").textContent =
-    index + 1 + "/" + imageData.length;
+    index + 1 + "/" + ImageData.length;
 }
 
 /** Seçilen fotoğrafı dialog penceresinde açar. */
@@ -133,7 +139,7 @@ function closeDialog() {
 
 /** Sonraki fotoğrafı gösterir; son fotoğraftan sonra ilk fotoğrafa döner. */
 function nextImage() {
-  if (currentIndex === imageData.length - 1) {
+  if (currentIndex === ImageData.length - 1) {
     currentIndex = 0;
   } else {
     currentIndex++;
@@ -144,7 +150,7 @@ function nextImage() {
 /** Önceki fotoğrafı gösterir; ilk fotoğraftan önce son fotoğrafa döner. */
 function previousImage() {
   if (currentIndex === 0) {
-    currentIndex = imageData.length - 1;
+    currentIndex = ImageData.length - 1;
   } else {
     currentIndex--;
   }
@@ -177,7 +183,4 @@ function handleDialogClose() {
     thumbnail.focus();
   }
 }
-function init() {
-  renderGallery();
-  renderDialog();
-}
+

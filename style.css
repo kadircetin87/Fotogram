@@ -27,7 +27,9 @@
   --white: #ffffff;
   --text-soft: #f5f5f5;
 }
-
+*{
+  box-sizing: border-box;
+}
 /* Sayfanın genel görünümünü ayarlıyorum */
 body {
   background-color: var(--blue-100);
@@ -79,12 +81,11 @@ header {
 /* Ana içerik alanına boşluk veriyorum */
 main {
   width: 100%;
-  padding-inline: 140px;
-  padding-block: 160px;
   max-width: 1440px;
   margin-inline: auto;
   flex: 1;
   padding: 160px max(calc(50% - 720px), 140px);
+  box-sizing: border-box;
 }
 
 /* Ana başlığı ortalayıp yazı stilini ayarlıyorum */
@@ -128,14 +129,12 @@ main h2 {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition:
-    transform 0,
-    2 ease opacity 0,
-    2 ease;
+  transition: transform 0.2s ease, opacity 0.2s ease; 
 }
+
 .gallery .thumbnail:hover img {
   transform: scale(1.05);
-  opacity: 0, 9;
+  opacity: 0.9; 
 }
 
 /* Büyük fotoğraf penceresinin görünümünü ayarlıyorum */
@@ -209,10 +208,11 @@ main h2 {
 /* Büyük fotoğrafın boyutunu ve hizalamasını ayarlıyorum */
 .dialog-image {
   width: 560px;
-  height: auto;
+  height: 380px;
+  object-fit: contain;
   border-radius: 0;
   display: block;
-  margin: 8px;
+  margin: 8px auto;
 }
 
 /* Önceki, sonraki ve fotoğraf numarası alanını hizalıyorum */
@@ -278,6 +278,7 @@ footer {
   background-repeat: no-repeat;
   background-position: top center;
   background-size: 100% auto;
+  overflow: hidden;
 }
 
 /* Alt kısımdaki logo ve yazıları alt alta yerleştiriyorum */
